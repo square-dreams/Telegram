@@ -22,9 +22,14 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew assembleDebug
 
+    - name: Prepare APK for upload
+      run: |
+        mkdir -p extracted_apks
+        find TMessagesProj/build/outputs/apk/ -name "*.apk" -exec cp {} extracted_apks/ \;
+
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: NewsGram-Debug-APKs
-        path: TMessagesProj/build/outputs/apk/
+        path: extracted_apks/
         
